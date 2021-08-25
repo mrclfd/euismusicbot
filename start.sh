@@ -1,6 +1,6 @@
-echo "Cloning Repo, Please Wait..."
-git clone https://github.com/AsmSafone/RadioPlayerV3.git /RadioPlayerV3
-cd /RadioPlayerV3
+echo "Kloning Repo, Harap Tunggu..."
+git clone https://github.com/mrclfd/euismusicbot.git /euismusicbot
+cd /euismusicbot
 pip3 install -U -r requirements.txt
-echo "Starting Bot, Please Wait..."
+echo "Mulai Bot, Harap Tunggu..."
 python3 main.py

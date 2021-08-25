@@ -44,7 +44,7 @@ from random import randint
 
 
 bot = Client(
-    "RadioPlayerVC",
+    "euismusicbot",
     Config.API_ID,
     Config.API_HASH,
     bot_token=Config.BOT_TOKEN
@@ -86,10 +86,10 @@ class MusicPlayer(object):
 
     async def send_playlist(self):
         if not playlist:
-            pl = f"{emoji.NO_ENTRY} **Empty Playlist!**"
+            pl = f"{emoji.NO_ENTRY} **Daftar putar kosong!**"
         else:       
-            pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                f"**{i}**. **{x[1]}**\n  - **Requested By:** {x[4]}\n"
+            pl = f"{emoji.PLAY_BUTTON} **Daftar putar**:\n" + "\n".join([
+                f"**{i}**. **{x[1]}**\n  - **Permintaan dari:** {x[4]}\n"
                 for i, x in enumerate(playlist)
             ])
         if msg.get('playlist') is not None:
@@ -112,7 +112,7 @@ class MusicPlayer(object):
         )
         # remove old track from playlist
         old_track = playlist.pop(0)
-        print(f"- START PLAYING: {playlist[0][1]}")
+        print(f"- MULAI MEMUTAR: {playlist[0][1]}")
         if EDIT_TITLE:
             await self.edit_title()
         if LOG_GROUP:
@@ -158,7 +158,7 @@ class MusicPlayer(object):
                     original_file=path.join("downloads", f"{info['id']}.{info['ext']}")
                 except Exception as e:
                     playlist.pop(1)
-                    print(f"Unable To Download Due To {e} & Skipped!")
+                    print(f"Tidak Dapat Mengunduh Karena {e} & Dilewati!")
                     if len(playlist) == 1:
                         return
                     await self.download_audio(playlist[1])
@@ -224,10 +224,10 @@ class MusicPlayer(object):
         await sleep(2)
         while True:
             if CALL_STATUS.get(CHAT):
-                print("Succesfully Joined VC !")
+                print("Berhasil Bergabung Dengan VC!")
                 break
             else:
-                print("Connecting, Please Wait ...")
+                print("Menghubungkan, Harap Tunggu...")
                 await self.start_call()
                 await sleep(1)
                 continue
@@ -273,9 +273,6 @@ class MusicPlayer(object):
             except Exception as e:
                 print(e)
                 pass
-        except Exception as e:
-            print(e)
-            pass
 
 
     async def edit_title(self):
@@ -289,7 +286,7 @@ class MusicPlayer(object):
         try:
             await self.group_call.client.send(edit)
         except Exception as e:
-            print("Error Occured On Changing VC Title:", e)
+            print("Terjadi Kesalahan Saat Mengubah Judul VC:", e)
             pass
 
 

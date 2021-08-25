@@ -27,38 +27,34 @@ CHAT=Config.CHAT
 ADMINS=Config.ADMINS
 playlist=Config.playlist
 
-HOME_TEXT = "👋🏻 **Hi [{}](tg://user?id={})**,\n\nI'm **Radio Player V3.0** \nI Can Play Radio / Music / YouTube Live In Channel & Group 24x7 Nonstop. Made with ❤️ By @AsmSafone 😉!"
+HOME_TEXT = "👋🏻 **Hai [{}](tg://user?id={})**,\n\nSaya **Euis Music Bot** \nSaya Dapat Memutar Radio / Musik / Siaran Langsung YouTube di Channel & Group 24x7 Nonstop."
 HELP_TEXT = """
-🎧 --**Need Help ?**--
-(Join @SafoTheBot For Support)
+ℹ **BANTUAN PENGGUNAAN PERINTAH** ℹ
 
-🏷️ --**Common Commands**-- :
+--**Perintah Umum**-- :
+\u2022 `/play` - membalas file audio atau tautan YouTube untuk memutarnya atau menggunakan /play [judul lagu]
+\u2022 `/help` - menunjukkan bantuan untuk perintah
+\u2022 `/song` [judul lagu] - unduh lagu sebagai trek audio
+\u2022 `/current` - menunjukkan waktu pemutaran trek saat ini
+\u2022 `/playlist` - menunjukkan daftar putar saat ini dengan kontrol
 
-\u2022 `/play` - reply to an audio or youTube link to play it or use /play [song name]
-\u2022 `/help` - shows help for commands
-\u2022 `/song` [song name] - download the song as audio track
-\u2022 `/current` - shows playing time of current track
-\u2022 `/playlist` - shows the current playlist with controls
+--**Perintah Khusus Admin**-- :
+\u2022 `/radio` - mulai siaran radio
+\u2022 `/stopradio` - hentikan siaran radio
+\u2022 `/skip` - lewati musik yang sedang diputar
+\u2022 `/join` - bergabung ke obrolan suara
+\u2022 `/leave` - keluar dari obrolan suara
+\u2022 `/stop` - berhenti memutar musik
+\u2022 `/volume` - atur volume (0-200)
+\u2022 `/replay` - putar dari awal
+\u2022 `/clean` - bersihkan cache
+\u2022 `/pause` - jeda memutar musik
+\u2022 `/resume` - lanjutkan memutar musik
+\u2022 `/mute` - bisukan obrolan suara userbot
+\u2022 `/unmute` - suarakan obrolan suara userbot
+\u2022 `/restart` - perbarui & mulai ulang bot
 
-🏷️ --**Admin Commands**-- :
-
-\u2022 `/radio` - start radio stream
-\u2022 `/stopradio` - stop radio stream
-\u2022 `/skip` - skip current music
-\u2022 `/join` - join the voice chat
-\u2022 `/leave` - leave the voice chat
-\u2022 `/stop` - stop playing music
-\u2022 `/volume` - change volume (0-200)
-\u2022 `/replay` - play from the beginning
-\u2022 `/clean` - remove unused raw files
-\u2022 `/pause` - pause playing music
-\u2022 `/resume` - resume playing music
-\u2022 `/mute` - mute the vc userbot
-\u2022 `/unmute` - unmute the vc userbot
-\u2022 `/restart` - update & restart the bot
-
-© **Powered By** : 
-**@AsmSafone | @SafoTheBot** 👑
+© **Bot Based on [AsmSafone](https://github.com/AsmSafone)**
 """
 
 
@@ -66,7 +62,7 @@ HELP_TEXT = """
 async def cb_handler(client: Client, query: CallbackQuery):
     if query.from_user.id not in Config.ADMINS and query.data != "help":
         await query.answer(
-            "You're Not Allowed! 🤣",
+            "Anda Tidak Diizinkan!",
             show_alert=True
             )
         return
@@ -78,10 +74,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return
         group_call.restart_playout()
         if not playlist:
-            pl = f"{emoji.NO_ENTRY} **Empty Playlist!**"
+            pl = f"{emoji.NO_ENTRY} **Daftar Putar Kosong!**"
         else:
-            pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                f"**{i}**. **{x[1]}**\n  - **Requested By:** {x[4]}"
+            pl = f"{emoji.PLAY_BUTTON} **Daftar putar**:\n" + "\n".join([
+                f"**{i}**. **{x[1]}**\n  - **Permintaan dari:** {x[4]}"
                 for i, x in enumerate(playlist)
                 ])
         await query.edit_message_text(
@@ -104,11 +100,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return
         else:
             mp.group_call.pause_playout()
-            pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                f"**{i}**. **{x[1]}**\n  **Requested By:** {x[4]}"
+            pl = f"{emoji.PLAY_BUTTON} **Daftar putar**:\n" + "\n".join([
+                f"**{i}**. **{x[1]}**\n  **Permintaan dari:** {x[4]}"
                 for i, x in enumerate(playlist)
                 ])
-        await query.edit_message_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} **Paused !**\n\n{pl}",
+        await query.edit_message_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} **Dijeda!**\n\n{pl}",
         reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -126,11 +122,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return
         else:
             mp.group_call.resume_playout()
-            pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                f"**{i}**. **{x[1]}**\n  - **Requested By:** {x[4]}"
+            pl = f"{emoji.PLAY_BUTTON} **Daftar putar**:\n" + "\n".join([
+                f"**{i}**. **{x[1]}**\n  - **Permintaan dari:** {x[4]}"
                 for i, x in enumerate(playlist)
                 ])
-        await query.edit_message_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} **Resumed !**\n\n{pl}",
+        await query.edit_message_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} **Dilanjutkan!**\n\n{pl}",
         reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -148,12 +144,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return
         else:
             await mp.skip_current_playing()
-            pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                f"**{i}**. **{x[1]}**\n  - **Requested By:** {x[4]}"
+            pl = f"{emoji.PLAY_BUTTON} **Daftar putar**:\n" + "\n".join([
+                f"**{i}**. **{x[1]}**\n  - **Permintaan dari:** {x[4]}"
                 for i, x in enumerate(playlist)
                 ])
         try:
-            await query.edit_message_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} **Skipped !**\n\n{pl}",
+            await query.edit_message_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} **Dilewati!**\n\n{pl}",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
@@ -170,15 +166,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data=="help":
         buttons = [
             [
-                InlineKeyboardButton("CHANNEL", url="https://t.me/AsmSafone"),
-                InlineKeyboardButton("SUPPORT", url="https://t.me/SafoTheBot"),
+                InlineKeyboardButton("CHANNEL", url="https://t.me/melekmoto"),
+                InlineKeyboardButton("GROUP", url="https://t.me/bermusikria"),
             ],
             [
-                InlineKeyboardButton("MORE BOTS", url="https://t.me/AsmSafone/173"),
-                InlineKeyboardButton("SOURCE CODE", url="https://github.com/AsmSafone/RadioPlayerV3"),
-            ],
-            [
-                InlineKeyboardButton("CLOSE 🔐", callback_data="close"),
+                InlineKeyboardButton("❌ TUTUP PESAN ❌", callback_data="close"),
             ]
             ]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -196,42 +188,33 @@ async def cb_handler(client: Client, query: CallbackQuery):
 async def start(client, message):
     buttons = [
             [
-                InlineKeyboardButton("CHANNEL", url="https://t.me/AsmSafone"),
-                InlineKeyboardButton("SUPPORT", url="https://t.me/SafoTheBot"),
+                InlineKeyboardButton("CHANNEL", url="https://t.me/melekmoto"),
+                InlineKeyboardButton("GROUP", url="https://t.me/bermusikria"),
             ],
             [
-                InlineKeyboardButton("MORE BOTS", url="https://t.me/AsmSafone/173"),
-                InlineKeyboardButton("SOURCE CODE", url="https://github.com/AsmSafone/RadioPlayerV3"),
-            ],
-            [
-                InlineKeyboardButton("❔ HOW TO USE ❔", callback_data="help"),
+                InlineKeyboardButton("ℹ CARA PENGGUNAAN ℹ", callback_data="help"),
             ]
             ]
     reply_markup = InlineKeyboardMarkup(buttons)
-    m=await message.reply_photo(photo="https://telegra.ph/file/4e839766d45935998e9c6.jpg", caption=HOME_TEXT.format(message.from_user.first_name, message.from_user.id), reply_markup=reply_markup)
+    m=await message.reply_photo(photo="https://telegra.ph/file/4e56effcd650aae470e7a.jpg", caption=HOME_TEXT.format(message.from_user.first_name, message.from_user.id), reply_markup=reply_markup)
     await mp.delete(m)
     await mp.delete(message)
-
 
 
 @Client.on_message(filters.command(["help", f"help@{USERNAME}"]))
 async def help(client, message):
     buttons = [
             [
-                InlineKeyboardButton("CHANNEL", url="https://t.me/AsmSafone"),
-                InlineKeyboardButton("SUPPORT", url="https://t.me/SafoTheBot"),
+                InlineKeyboardButton("CHANNEL", url="https://t.me/melekmoto"),
+                InlineKeyboardButton("GROUP", url="https://t.me/bermusikria"),
             ],
             [
-                InlineKeyboardButton("MORE BOTS", url="https://t.me/AsmSafone/173"),
-                InlineKeyboardButton("SOURCE CODE", url="https://github.com/AsmSafone/RadioPlayerV3"),
-            ],
-            [
-                InlineKeyboardButton("CLOSE 🔐", callback_data="close"),
+                InlineKeyboardButton("❌ TUTUP PESAN ❌", callback_data="close"),
             ]
             ]
     reply_markup = InlineKeyboardMarkup(buttons)
     if msg.get('help') is not None:
         await msg['help'].delete()
-    msg['help'] = await message.reply_photo(photo="https://telegra.ph/file/4e839766d45935998e9c6.jpg", caption=HELP_TEXT, reply_markup=reply_markup)
+    msg['help'] = await message.reply_photo(photo="https://telegra.ph/file/4e56effcd650aae470e7a.jpg", caption=HELP_TEXT, reply_markup=reply_markup)
     await mp.delete(message)
 

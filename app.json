@@ -1,8 +1,8 @@
 {
-  "name": "Telegram Radio Player V3",
-  "description": "An Telegram Bot By Safone to Play Nonstop Radio/Music/YouTube Live in Telegram Voice Chats",
-  "repository": "https://github.com/AsmSafone/RadioPlayerV3",
-  "logo": "https://telegra.ph/file/a3755d9cb09f1361e3ac7.jpg",
+  "name": "Euis Music Bot",
+  "description": "An Telegram Bot to Play Nonstop Radio/Music/YouTube Live in Telegram Voice Chats",
+  "repository": "https://github.com/mrclfd/euismusicbot",
+  "logo": "https://telegra.ph/file/4e56effcd650aae470e7a.jpg",
   "stack": "container",
   "keywords": [
     "telegram",
@@ -14,27 +14,29 @@
     "pyrogram",
     "pytgcalls",
     "vcradio",
+    "Euis Music Bot",
+    "euismusicbot",
     "radioplayer"
   ],
   "env": {
     "API_ID": {
-      "description": "User Accounts Telegram API_ID get it from my.telegram.org/apps",
+      "description": "api_id part of your Telegram API Key from my.telegram.org/apps",
       "required": true
     },
     "API_HASH": {
-      "description": "User Accounts Telegram API_HASH get it from my.telegram.org/apps",
+      "description": "api_hash part of your Telegram API Key from my.telegram.org/apps",
       "required": true
     },
     "BOT_TOKEN": {
-      "description": "Your Telegram Bot Token, get it from @Botfather XD",
+      "description": "Bot token of Bot, get from @Botfather",
       "required": true
     },
     "SESSION_STRING": {
-      "description": "User Session String, get it from @genStr_robot. Read readme to learn more",
+      "description": "Session string, use @genStr_robot to generate pyrogram session string",
       "required": true
     },
     "CHAT": {
-      "description": "ID of your Channel or Group where the bot plays Radio/Music/YouTube Lives",
+      "description": "ID of Channel or Group where the Bot plays Radio/Music/YouTube Lives",
       "required": true
     },
     "LOG_GROUP": {
@@ -42,7 +44,7 @@
       "required": false
     },
     "ADMINS": {
-      "description": "ID of Auth Users who can use Admin commands (for multiple users seperated by space)",
+      "description": "ID of Users who can use Admin commands (for multiple users seperated by space)",
       "required": true
     },
     "ADMIN_ONLY": {
@@ -51,12 +53,12 @@
       "required": false
     },
     "MAXIMUM_DURATION": {
-      "description": "Maximum Duration of a song to be played by using /play command",
+      "description": "Maximum duration of song to be played using /play command",
       "value": "15",
       "required": false
     },
     "STREAM_URL": {
-      "description": "URL of Radio Station or Youtube Live video url to stream with /radio command",
+      "description": "URL of Radio station or Youtube Live video url to stream with /radio command",
       "value": "https://youtu.be/5qap5aO4i9A",
       "required": false
     },
@@ -67,6 +69,7 @@
     }
   },
   "formation": {
+    
     "worker": {
       "quantity": 1,
       "size": "free"
