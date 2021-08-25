@@ -40,23 +40,23 @@ ADMINS_FILTER = filters.create(is_admin)
 @Client.on_message(filters.command(["radio", f"radio@{USERNAME}"]) & ADMINS_FILTER & (filters.chat(CHAT) | filters.private | filters.chat(LOG_GROUP)))
 async def radio(client, message: Message):
     if 1 in RADIO:
-        k=await message.reply_text(f"{emoji.ROBOT} **Please Stop Existing Radio Stream!**")
+        k=await message.reply_text(f"{emoji.ROBOT} **Tolong Hentikan Siaran Radio yang Ada!**")
         await mp.delete(k)
         await message.delete()
         return
     await mp.start_radio()
-    k=await message.reply_text(f"{emoji.CHECK_MARK_BUTTON} **Radio Stream Started :** \n<code>{STREAM}</code>")
+    k=await message.reply_text(f"{emoji.CHECK_MARK_BUTTON} **Siaran Radio Dimulai:** \n<code>{STREAM}</code>")
     await mp.delete(k)
     await mp.delete(message)
 
 @Client.on_message(filters.command(["stopradio", f"stopradio@{USERNAME}"]) & ADMINS_FILTER & (filters.chat(CHAT) | filters.private | filters.chat(LOG_GROUP)))
 async def stop(_, message: Message):
     if 0 in RADIO:
-        k=await message.reply_text(f"{emoji.ROBOT} **Please Start A Radio Stream First!**")
+        k=await message.reply_text(f"{emoji.ROBOT} **Silakan Mulai Siaran Radio Terlebih Dahulu!**")
         await mp.delete(k)
         await mp.delete(message)
         return
     await mp.stop_radio()
-    k=await message.reply_text(f"{emoji.CROSS_MARK_BUTTON} **Radio Stream Ended Successfully!**")
+    k=await message.reply_text(f"{emoji.CROSS_MARK_BUTTON} **Siaran Radio Berhasil Dihentikan!**")
     await mp.delete(k)
     await mp.delete(message)

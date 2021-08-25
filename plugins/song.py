@@ -46,7 +46,7 @@ async def song(client, message):
     for i in message.command[1:]:
         query += ' ' + str(i)
     print(query)
-    k=await message.reply_text("🔍 **Searching Song...**")
+    k=await message.reply_text("🔍 **Mencari Lagu...**")
     ydl_opts = {
         "format": "bestaudio[ext=m4a]",
         "geo-bypass": True,
@@ -75,38 +75,38 @@ async def song(client, message):
             #     m.edit("Exceeded 30mins cap")
             #     return
 
-            performer = f"[ꜱᴀꜰᴏɴᴇ ᴍᴜꜱɪᴄ]" 
+            performer = f"[@EuisMusicBot]" 
             thumb_name = f'thumb{message.message_id}.jpg'
             thumb = requests.get(thumbnail, allow_redirects=True)
             open(thumb_name, 'wb').write(thumb.content)
 
         except Exception as e:
             print(e)
-            await k.edit('❌ **Found Literary Noting! \nPlease Try Another Song or Use Correct Spelling.**')
+            await k.edit('❌ **Lagu Tidak Ditemukan! \nSilakan Gunakan Ejaan yang Benar atau Coba Cari Lagu Lain.**')
             return
     except Exception as e:
         await k.edit(
-            "❗ **Enter An Song Name!** \nFor Example: `/song Alone Marshmellow`"
+            "❗ **Masukkan Nama Lagu!** \nMisalnya: `/song Makmur Ing Sukoharjo`"
         )
         print(str(e))
         return
-    await k.edit("📥 **Downloading Song...**")
+    await k.edit("📥 **Mengunduh Lagu...**")
     try:
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)
             audio_file = ydl.prepare_filename(info_dict)
             ydl.process_info(info_dict)
-        cap = f'🏷 <b>Title:</b> <a href="{link}">{title}</a>\n⏳ <b>Duration:</b> <code>{duration}</code>\n👀 <b>Views:</b> <code>{views}</code>\n🎧 <b>Requested By:</b> {message.from_user.mention()} \n📤 <b>Uploaded By: @AsmSafone</b> 👑'
+        cap = f'🎶 <b>Judul:</b> <a href="{link}">{title}</a>\n⏳ <b>Durasi:</b> <code>{duration}</code>\n👀 <b>Penonton:</b> <code>{views}</code>\n🎧 <b>Permintaan dari:</b> {message.from_user.mention()} \n📤 <b>Diunggah oleh [Euis Music Bot](https://t.me/EuisMusicBot)</b>'
         secmul, dur, dur_arr = 1, 0, duration.split(':')
         for i in range(len(dur_arr)-1, -1, -1):
             dur += (int(dur_arr[i]) * secmul)
             secmul *= 60
-        await k.edit("📤 **Uploading Song...**")
+        await k.edit("📤 **Mengunggah Lagu...**")
         await message.reply_audio(audio_file, caption=cap, parse_mode='HTML', title=title, duration=dur, performer=performer, thumb=thumb_name)
         await mp.delete(k)
         await mp.delete(message)
     except Exception as e:
-        await k.edit(f'❌ **An Error Occured!** \n\nError:- {e}')
+        await k.edit(f'❌ **Terjadi Kesalahan!** \n\nError:- {e}')
         print(e)
     try:
         os.remove(audio_file)
