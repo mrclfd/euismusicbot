@@ -47,7 +47,7 @@ async def main():
 
 def stop_and_restart():
     bot.stop()
-    os.system("git pull && pip3 install -U pytgcalls[pyrogram]")
+    os.system("git pull")
     sleep(10)
     os.execl(sys.executable, sys.executable, *sys.argv)
 
@@ -151,10 +151,7 @@ async def restart(client, message):
     await k.edit("🔄 **Berhasil diperbarui!**")
     await asyncio.sleep(2)
     await k.edit("🔄 **Memulai ulang...**")
-    try:
-        await message.delete()
-    except:
-        pass
+    await asyncio.sleep(10)
     process = FFMPEG_PROCESSES.get(CHAT)
     if process:
         try:
@@ -170,6 +167,7 @@ async def restart(client, message):
         ).start()
     try:
         await k.delete()
+        await k.reply_to_message.delete()
     except:
         pass
         
