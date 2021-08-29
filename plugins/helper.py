@@ -166,6 +166,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data=="help":
         buttons = [
             [
+                InlineKeyboardButton("CARI LAGU 🔍", switch_inline_query_current_chat=""),
+            ],
+            [
                 InlineKeyboardButton("CHANNEL", url="https://t.me/melekmoto"),
                 InlineKeyboardButton("GROUP", url="https://t.me/bermusikria"),
             ],
@@ -188,6 +191,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
 async def start(client, message):
     buttons = [
             [
+                InlineKeyboardButton("CARI LAGU 🔍", switch_inline_query_current_chat=""),
+            ],
+            [
                 InlineKeyboardButton("CHANNEL", url="https://t.me/melekmoto"),
                 InlineKeyboardButton("GROUP", url="https://t.me/bermusikria"),
             ],
@@ -204,6 +210,9 @@ async def start(client, message):
 @Client.on_message(filters.command(["help", f"help@{USERNAME}"]))
 async def help(client, message):
     buttons = [
+            [
+                InlineKeyboardButton("CARI LAGU 🔍", switch_inline_query_current_chat=""),
+            ],
             [
                 InlineKeyboardButton("CHANNEL", url="https://t.me/melekmoto"),
                 InlineKeyboardButton("GROUP", url="https://t.me/bermusikria"),
