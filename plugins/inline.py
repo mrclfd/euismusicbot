@@ -19,14 +19,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>
 import asyncio
 from pyrogram.handlers import InlineQueryHandler
 from youtubesearchpython import VideosSearch
-from utils import USERNAME
+from utils import USERNAME, mp
 from pyrogram.types import InlineQueryResultArticle, InputTextMessageContent, InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram import Client, errors
 from config import Config
 
 REPLY_MESSAGE=Config.REPLY_MESSAGE
 buttons = [
-           [
+            [
+                InlineKeyboardButton("CARI LAGU 🔍", switch_inline_query_current_chat=""),
+            ],
+            [
                 InlineKeyboardButton("CHANNEL", url="https://t.me/melekmoto"),
                 InlineKeyboardButton("GROUP", url="https://t.me/bermusikria"),
             ],
@@ -39,10 +42,11 @@ buttons = [
 @Client.on_inline_query()
 async def search(client, query):
     answers = []
-    if query.query == "userbot":
+    if query.query == "":
         answers.append(
             InlineQueryResultArticle(
-                title="👋🏻 **Hai [{}](tg://user?id={})**,\n\nSaya **Euis Music Bot** \nSaya Dapat Memutar Radio / Musik / Siaran Langsung YouTube di Channel & Group 24x7 Nonstop.",
+                title="Euis Music Bot",
+                description="✨ Can Play Radio/YouTube Live/Music On VC.",
                 thumb_url="https://telegra.ph/file/4e56effcd650aae470e7a.jpg",
                 input_message_content=InputTextMessageContent(f"{REPLY_MESSAGE}\n<code>- Euis Music Bot</code>", disable_web_page_preview=True),
                 reply_markup=InlineKeyboardMarkup(buttons)
@@ -55,7 +59,7 @@ async def search(client, query):
         await client.answer_inline_query(
             query.id,
             results=answers,
-            switch_pm_text=("Apa Judul Lagu yang Kamu Cari?"),
+            switch_pm_text=("Ketik Judul Lagu!"),
             switch_pm_parameter="help",
             cache_time=0
         )
